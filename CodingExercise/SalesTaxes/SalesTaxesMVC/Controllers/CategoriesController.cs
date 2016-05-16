@@ -35,30 +35,7 @@ namespace SalesTaxesMVC.Controllers
             }
             return View(itemCategoryModel);
         }
-
-        // GET: ItemCategory/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ItemCategory/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,Category,PercentageOfBasicTaxes,PercentageOfImportTaxes")] CategoryModel itemCategoryModel)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Categories.Add(itemCategoryModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(itemCategoryModel);
-        }
-
+        
         // GET: ItemCategory/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -88,32 +65,6 @@ namespace SalesTaxesMVC.Controllers
                 return RedirectToAction("Index");
             }
             return View(itemCategoryModel);
-        }
-
-        // GET: ItemCategory/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CategoryModel itemCategoryModel = db.Categories.Find(id);
-            if (itemCategoryModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(itemCategoryModel);
-        }
-
-        // POST: ItemCategory/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            CategoryModel itemCategoryModel = db.Categories.Find(id);
-            db.Categories.Remove(itemCategoryModel);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

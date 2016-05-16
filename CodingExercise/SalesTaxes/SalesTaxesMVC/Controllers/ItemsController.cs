@@ -41,10 +41,17 @@ namespace SalesTaxesMVC.Controllers
         // GET: Items/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(RepositoriesFactory.GetCategoryRepository().GetCategories(), "CategoryId", "CategoryId");
+            ViewBag.CategoryId = GetCategoryList();
             return View();
         }
 
+        private SelectList GetCategoryList(int? categoryId = null)
+        {
+            if (categoryId != null)
+                return new SelectList(RepositoriesFactory.GetCategoryRepository().GetCategories(), "CategoryId", "Category", categoryId);
+            return new SelectList(RepositoriesFactory.GetCategoryRepository().GetCategories(), "CategoryId", "Category");
+
+        }
         // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -58,7 +65,7 @@ namespace SalesTaxesMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryId = new SelectList(RepositoriesFactory.GetCategoryRepository().GetCategories(), "CategoryId", "CategoryId", itemModel.CategoryId);
+            ViewBag.CategoryId = GetCategoryList(itemModel.CategoryId);
             return View(itemModel);
         }
 
@@ -74,7 +81,7 @@ namespace SalesTaxesMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(RepositoriesFactory.GetCategoryRepository().GetCategories(), "CategoryId", "CategoryId", itemModel.CategoryId);
+            ViewBag.CategoryId = GetCategoryList(itemModel.CategoryId);
             return View(itemModel);
         }
 
@@ -90,7 +97,7 @@ namespace SalesTaxesMVC.Controllers
                 dbRepo.EditItem(itemModel);
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(RepositoriesFactory.GetCategoryRepository().GetCategories(), "CategoryId", "CategoryId", itemModel.CategoryId);
+            ViewBag.CategoryId = GetCategoryList(itemModel.CategoryId);
             return View(itemModel);
         }
 

@@ -13,7 +13,7 @@ using SalesTaxesRepositories;
 namespace SalesTaxesMVC.Controllers
 {
     public class BasketsController : Controller
-    {
+    { 
         private IBasketRepository dbRepo = RepositoriesFactory.GetBasketRepository();
 
         // GET: Baskets
