@@ -243,3 +243,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/JojoscarUI
+/JojoscarUI.sln
+/Jojoscar/
+/MyTestAzureCloudService/
+/CodingExercise/docs

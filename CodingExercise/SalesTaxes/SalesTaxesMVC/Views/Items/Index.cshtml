@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SalesTaxesModels.ItemModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imported)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imported)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemId })
+        </td>
+    </tr>
+}
+
+</table>

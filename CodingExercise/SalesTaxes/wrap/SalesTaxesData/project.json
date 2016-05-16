@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../SalesTaxesData/SalesTaxesDBLayer.csproj",
+      "bin": {
+        "assembly": "../../SalesTaxesData/obj/{configuration}/SalesTaxesData.dll",
+        "pdb": "../../SalesTaxesData/obj/{configuration}/SalesTaxesData.pdb"
+      },
+      "dependencies": {
+        "AutoMapper": "4.1.1",
+        "EntityFramework": "6.1.3",
+        "SalesTaxesModels": "1.0.0-*"
+      }
+    }
+  }
+}

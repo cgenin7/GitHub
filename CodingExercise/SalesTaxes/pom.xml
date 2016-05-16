@@ -1,0 +1,38 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.teksystems</groupId>
+  <!--The two following xml nodes need to be updated with you gitLab UserName-->
+  <!--The result should look like this <artifactId>dotnet-coding-exercise-JohnDoe</artifactId>-->
+  <artifactId>dotnet-coding-exercise-c2f3d59eb06247fbb7710ae2a70cb2e6</artifactId>
+  <version>2.0</version>
+  <!--The two following xml nodes need to be updated with you gitLab UserName-->
+  <!--The result should look like this <name>dotnet-coding-exercise-JohnDoe</name>-->
+ <name>dotnet-coding-exercise-c2f3d59eb06247fbb7710ae2a70cb2e6</name>
+  <packaging>sln</packaging>
+
+  <properties>
+    <visual.studio.solution>CodingExercise.sln</visual.studio.solution>
+    <dotnet.tool.version>4.0</dotnet.tool.version>
+    <sonar.cs.vscoveragexml.reportsPaths>${WORKSPACE}/Results/VisualStudio.coveragexml</sonar.cs.vscoveragexml.reportsPaths>
+    <sonar.cs.vstest.reportsPaths>${WORKSPACE}/Results/TestResults.trx</sonar.cs.vstest.reportsPaths>
+    <sonar.cs.fxcop.assembly>${WORKSPACE}/Output/*</sonar.cs.fxcop.assembly>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
+        <artifactId>maven-dotnet-plugin</artifactId>
+        <extensions>true</extensions>
+        <version>1.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <configuration>
+          <language>cs</language>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
