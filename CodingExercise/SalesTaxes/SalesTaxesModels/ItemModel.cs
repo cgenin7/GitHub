@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+
 namespace SalesTaxesModels
 {
     public class ItemModel
@@ -6,7 +8,9 @@ namespace SalesTaxesModels
         public ItemModel() { }
         
         public int ItemId { get; set; }
+        [DisplayName("Name")]
         public string ItemName { get; set; }
+        [DisplayName("Price")]
         public double ItemPrice { get; set; }
         public bool Imported { get; set; }
 

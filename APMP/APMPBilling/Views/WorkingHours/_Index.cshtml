@@ -1,0 +1,106 @@
+﻿@model WorkHoursViewModel
+
+<div id="ChangeWorkSiteDiv">
+   
+    @if (Model.Sites == null)
+    {
+        <p>
+            @Html.ActionLink("Jour précédent", "ChangeDay", new { CurrentDay = Model.DisplayDay.ToString("ddMMyyyy"), WorkSiteId = Model.SelectedSiteId, Shift = -1 }, new { id = "PreviousDayId" })
+            &nbsp; | &nbsp;
+            @Html.ActionLink("Jour suivant", "ChangeDay", new { CurrentDay = Model.DisplayDay.ToString("ddMMyyyy"), WorkSiteId = Model.SelectedSiteId, Shift = 1 }, new { id = "NextDayId" })
+        </p>
+
+        <br />
+        @: Il n'y a pas de chantier actif actuellement.
+        <br />
+    }
+    else
+    { 
+        using (Ajax.BeginForm("ChangeWorkSite",
+                                        new AjaxOptions
+                                        {
+                                            HttpMethod = "post",
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "ChangeWorkSiteDiv"
+                                        }))
+        {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.UserId)
+                @Html.HiddenFor(model => model.DisplayDay)
+                @Html.DropDownListFor(model => model.SelectedSiteId, Model.Sites, new { id="SelectedSiteId" })
+        }
+        <br/>
+        <p>
+            @Html.ActionLink("Jour précédent", "ChangeDay", new { CurrentDay = Model.DisplayDay.ToString("ddMMyyyy"), WorkSiteId = Model.SelectedSiteId, Shift = -1 },
+               new { id = "PreviousDayId" })
+            &nbsp; | &nbsp;
+            @Html.ActionLink("Jour suivant", "ChangeDay", new { CurrentDay = Model.DisplayDay.ToString("ddMMyyyy"), WorkSiteId = Model.SelectedSiteId, Shift = 1 },
+                new { id = "NextDayId" })
+        </p>
+        <br/>
+
+        <input type="text" id="WarningMsgId" style="display:none" contenteditable="false"/>
+
+        using (Html.BeginForm("Index", "WorkingHours"))
+        {
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.SelectedSiteId)
+            @Html.HiddenFor(m => m.DisplayDay)
+
+            <table>
+                <tr>
+                    <td style="height:60px" rowspan="2">
+                        <div class="dateCool">
+                            <p>
+                                @if (Model.DisplayDay.Day == 1)
+                                {
+                                    @:1<sup>er</sup>
+                                }
+                                else
+                                {
+                                    @Model.DisplayDay.Day
+                                }
+                                <span>@Model.Month</span>
+                            </p>
+                        </div>
+                        <br />
+                    </td>
+                    <td style="padding-left:20px;font-weight:bold">
+                        @Model.SiteName
+                    </td>   
+                </tr>
+                <tr>
+                    <td style="padding-left:20px">
+                        @Html.DropDownListFor(m => m.NbHours, Model.PossibleHours, new { style = "width:100px", Id="PossibleHoursId" })
+                        &nbsp; @Html.LabelFor(m => m.NbHours)
+                    </td>
+                </tr>
+                <tr style="height:20px">
+                    
+                    <td colspan="3"><div id="DisplayDateId"></div></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                        @Html.TextAreaFor(m => m.Info, new
+                           {
+                               @class = "textAreaInfo", id="InfoId"
+                           })
+                    </td>
+                </tr>
+            </table>
+
+            
+            <br />
+
+            <div class="form-actions no-color">
+                <input type="submit" id="SaveWorkingHoursId" value="Sauvegarder" class="btn btn-default" />
+            </div>
+        }
+    }
+</div>
+
+
+

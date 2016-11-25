@@ -1,33 +1,37 @@
 ﻿@model IEnumerable<SalesTaxesModels.BasketModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Baskets";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Basket", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BasketName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BasketName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BasketId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BasketId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BasketId })
-        </td>
-    </tr>
+    
+@foreach (var basket in Model)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                @Html.DisplayFor(modelItem => basket.BasketName)
+            </div>
+            <div class="col-sm-6 col-md-8">
+                @Html.ActionLink("Edit", "Edit", new { id = basket.BasketId }) |
+                @Html.ActionLink("Details", "Details", new { id = basket.BasketId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = basket.BasketId })
+            </div>
+        </div>
+        @foreach (var basketItem in basket.BasketItems)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    &nbsp;&nbsp;&nbsp; @Html.ActionLink(basketItem.Item.ItemName, "BasketItemDetail", "Items", new { id = basketItem.ItemId }, null)
+                    :  @Html.DisplayFor(modelItem => basketItem.ItemQuantity)
+                </div>
+            </div>
+        }
+    </div>
 }
 
-</table>

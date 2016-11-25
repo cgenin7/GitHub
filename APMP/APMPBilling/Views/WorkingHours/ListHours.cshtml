@@ -1,0 +1,248 @@
+﻿@model WorkHoursListViewModel
+
+@{
+    ViewBag.Title = "APMP - Heures travaillées";
+}
+
+<br />
+<h2> @Model.UserName - @Model.Period</h2>
+
+<br />
+
+<p>
+    @Html.ActionLink("Semaine précédente", "ChangeWeekList", new { UserId = Model.UserId, StartOfWeek = Model.StartOfWeek.ToString("ddMMyyyy"), Shift = -7 })
+    &nbsp; | &nbsp;
+    @Html.ActionLink("Semaine suivante", "ChangeWeekList", new { UserId = Model.UserId, StartOfWeek = Model.StartOfWeek.ToString("ddMMyyyy"), Shift = 7 })
+</p>
+
+
+@using (Html.BeginForm("ListHours", "WorkingHours"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => Model.StartOfWeek)
+    @Html.HiddenFor(m => Model.UserId)
+
+
+    for (var i = 0; i < Model.WorksiteHours.Count; i++)
+    {
+        @Html.HiddenFor(modelItem => Model.WorksiteHours[i].UserId)
+        @Html.HiddenFor(modelItem => Model.WorksiteHours[i].StartOfWeek)
+        @Html.HiddenFor(modelItem => Model.WorksiteHours[i].WorkSiteId)
+
+        
+        <div class="row">
+            <div class="col-md-4">
+                @Html.ActionLink(Model.WorksiteHours[i].WorkSite.Location, "Details", "WorkSite", new { id = Model.WorksiteHours[i].WorkSite.WorkSiteId }, null)
+            </div>
+            <div class="col-md-8">
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">&nbsp; Lundi:</div>
+            <div class="col-xs-9 col-sm-3 col-md-2 col-lg-2">
+                @Html.DropDownListFor(m => m.WorksiteHours[i].MondayHours, new SelectList(Utils.GetPossibleHours(), Model.WorksiteHours[i].MondayHours), new { style = "width:50px" })
+                &nbsp; heures &nbsp; &nbsp;
+            </div>
+            <div class="col-lg-8 hidden-md hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].MondayInfo, 40)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].MondayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8 hidden-lg hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].MondayInfo, 30)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].MondayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-7 hidden-lg hidden-xs hidden-md hidden-lg">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].MondayInfo, 20)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].MondayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-9">
+                <br />
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].MondayInfo, 15)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].MondayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">&nbsp; Mardi:</div>
+            <div class="col-xs-9 col-sm-3 col-md-2 col-lg-2">
+                @Html.DropDownListFor(m => m.WorksiteHours[i].TuesdayHours, new SelectList(Utils.GetPossibleHours(), Model.WorksiteHours[i].TuesdayHours), new { style = "width:50px" })
+                &nbsp; heures &nbsp; &nbsp;
+            </div>
+            <div class="col-lg-8 hidden-md hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].TuesdayInfo, 40)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].TuesdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8 hidden-lg hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].TuesdayInfo, 30)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].TuesdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-7 hidden-lg hidden-xs hidden-md hidden-lg">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].TuesdayInfo, 20)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].TuesdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-9">
+                <br />
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].TuesdayInfo, 15)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].TuesdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">&nbsp; Mercredi:</div>
+            <div class="col-xs-9 col-sm-3 col-md-2 col-lg-2">
+                @Html.DropDownListFor(m => m.WorksiteHours[i].WednesdayHours, new SelectList(Utils.GetPossibleHours(), Model.WorksiteHours[i].WednesdayHours), new { style = "width:50px" })
+                &nbsp; heures &nbsp; &nbsp;
+            </div>
+            <div class="col-lg-8 hidden-md hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].WednesdayInfo, 40)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].WednesdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8 hidden-lg hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].WednesdayInfo, 30)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].WednesdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-7 hidden-lg hidden-xs hidden-md hidden-lg">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].WednesdayInfo, 20)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].WednesdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-9">
+                <br />
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].WednesdayInfo, 15)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].WednesdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">&nbsp; Jeudi:</div>
+            <div class="col-xs-9 col-sm-3 col-md-2 col-lg-2">
+                @Html.DropDownListFor(m => m.WorksiteHours[i].ThursdayHours, new SelectList(Utils.GetPossibleHours(), Model.WorksiteHours[i].ThursdayHours), new { style = "width:50px" })
+                &nbsp; heures &nbsp; &nbsp;
+            </div>
+            <div class="col-lg-8 hidden-md hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].ThursdayInfo, 40)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].ThursdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8 hidden-lg hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].ThursdayInfo, 30)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].ThursdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-7 hidden-lg hidden-xs hidden-md hidden-lg">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].ThursdayInfo, 20)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].ThursdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-9">
+                <br />
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].ThursdayInfo, 15)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].ThursdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">&nbsp; Vendredi:</div>
+            <div class="col-xs-9 col-sm-3 col-md-2 col-lg-2">
+                @Html.DropDownListFor(m => m.WorksiteHours[i].FridayHours, new SelectList(Utils.GetPossibleHours(), Model.WorksiteHours[i].FridayHours), new { style = "width:50px" })
+                &nbsp; heures &nbsp; &nbsp;
+            </div>
+            <div class="col-lg-8 hidden-md hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].FridayInfo, 40)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].FridayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8 hidden-lg hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].FridayInfo, 30)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].FridayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-7 hidden-lg hidden-xs hidden-md hidden-lg">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].FridayInfo, 20)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].FridayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-9">
+                <br />
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].FridayInfo, 15)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].FridayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">&nbsp; Samedi:</div>
+            <div class="col-xs-9 col-sm-3 col-md-2 col-lg-2">
+                @Html.DropDownListFor(m => m.WorksiteHours[i].SaturdayHours, new SelectList(Utils.GetPossibleHours(), Model.WorksiteHours[i].SaturdayHours), new { style = "width:50px" })
+                &nbsp; heures &nbsp; &nbsp;
+            </div>
+            <div class="col-lg-8 hidden-md hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SaturdayInfo, 40)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SaturdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8 hidden-lg hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SaturdayInfo, 30)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SaturdayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-7 hidden-lg hidden-xs hidden-md hidden-lg">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SaturdayInfo, 20)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SaturdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-9">
+                <br />
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SaturdayInfo, 15)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SaturdayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">&nbsp; Dimanche:</div>
+            <div class="col-xs-9 col-sm-3 col-md-2 col-lg-2">
+                @Html.DropDownListFor(m => m.WorksiteHours[i].SundayHours, new SelectList(Utils.GetPossibleHours(), Model.WorksiteHours[i].SundayHours), new { style = "width:50px" })
+                &nbsp; heures &nbsp; &nbsp;
+            </div>
+            <div class="col-lg-8 hidden-md hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SundayInfo, 40)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SundayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-8 hidden-lg hidden-sm hidden-xs">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SundayInfo, 30)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SundayHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-7 hidden-lg hidden-xs hidden-md hidden-lg">
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SundayInfo, 20)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SundayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-9">
+                <br />
+                @Html.TextAreaAutoSizeFor(m => Model.WorksiteHours[i].SundayInfo, 15)
+                @Html.ValidationMessageFor(modelItem => Model.WorksiteHours[i].SundayHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+    }
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <input type="submit" value="Sauvegarder" class="btn btn-default" /> &nbsp;
+        </div>
+    </div>
+}

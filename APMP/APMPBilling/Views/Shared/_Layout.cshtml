@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~//bundles/modernizr")
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="57x57" href="~/images/logoApple.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/images/logoApple2.png"  />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/images/logoApple3.png" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <b>@Html.ActionLink("Accueil", "Index", "WorkingHours", new { area = "" }, new { @class = "navbar-brand" })   </b>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Chantiers", "Index", "WorkSite", new { area = "" }, new { @class = "navbar-brand" })</li>
+                        <li>@Html.ActionLink("Employés", "Index", "Users", new { area = "" }, new { @class = "navbar-brand" })</li>
+                        <li>@Html.ActionLink("Rapports", "Index", "Reporting", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    }
+
+                    <li>@Html.ActionLink("Contactez nous", "Contact", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - APMP électrique. Conçu par <a href="http://www.gclogik.com">GcLogik Inc.</a> </p>
+        </footer>
+    </div>
+
+    <div class="PleaseWaitModal"></div>
+
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

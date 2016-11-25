@@ -1,0 +1,42 @@
+﻿@model NotificationViewModel
+@{
+    ViewBag.Title = "Configuration";
+}
+
+<h2>Configuration</h2>
+<br />
+
+@using (Html.BeginForm("Save", "Settings"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Notification.UserId)
+
+    @Html.CheckBoxFor(m => m.BeNotified, new { id = "BeNotifiedId" }) @:Notifiez-moi lorsqu'un employé entre ses heures.
+    <br/>
+    <br />
+
+    var displayStyle = (Model.BeNotified) ? "display:normal" : "display:none";
+    <div id="CourrielInfoDiv" style='@displayStyle'>
+        Courriel:  @Html.EditorFor(m => m.Notification.NotificationEmail)
+    </div>
+    <br />
+    <input type="submit" value="Sauvegarder" class="btn btn-default" />
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+           
+            $(document).on("click", "#BeNotifiedId", function () {
+                if (this.checked)
+                    $("#CourrielInfoDiv").attr("Style", "display:normal");
+                else
+                    $("#CourrielInfoDiv").attr("Style", "display:none");
+            });
+        });
+
+        
+    </script>
+    
+}

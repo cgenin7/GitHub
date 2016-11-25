@@ -1,0 +1,66 @@
+﻿@model APMPRepository.Models.WorkSiteModel
+
+@{
+    ViewBag.Title = "APMP - Détails";
+}
+
+<br/>
+<h2>@Model.Location</h2>
+<br />
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNb)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @if (Model.IsActive)
+            {
+                @: Actif
+            }
+            else
+            {
+                @: Inactif
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalInfo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.WorkSiteId }) |
+    @Html.ActionLink("Supprimer", "Delete", new { id = Model.WorkSiteId }) |
+    @Html.ActionLink("Retour à la liste", "Index")
+</p>

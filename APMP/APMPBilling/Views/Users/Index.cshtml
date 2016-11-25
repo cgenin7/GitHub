@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ApplicationUserViewModel>
+
+
+@{
+    ViewBag.Title = "APMP - Employés enregistrés";
+}
+
+<br />
+<h2>Utilisateurs enregistrés</h2>
+<br/>
+<br />
+<hr />
+<div class="row" style="font-weight:bold">
+    <div class="col-md-2 col-sm-3 col-xs-6">
+        Nom
+    </div>
+    <div class="col-md-3 col-sm-4 hidden-xs">
+        @Html.DisplayNameFor(model => model.User.Email)
+    </div>
+    <div class="col-md-2 hidden-xs hidden-sm">
+        @Html.DisplayNameFor(model => model.User.PhoneNb)
+    </div>
+    <div class="col-md-2 col-sm-3 hidden-xs">
+        @Html.DisplayNameFor(model => model.User.SkillLevel)
+    </div>
+    <div class="col-md-2 hidden-xs hidden-sm">
+        Role
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6">
+    </div>
+</div>
+<hr />
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-2 col-sm-3 col-xs-6">
+            @Html.ActionLink(item.User.FirstName + " " + item.User.LastName, "Details", new { id = item.User.Id })
+        </div>
+        <div class="col-md-3 col-sm-4 hidden-xs">
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </div>
+        <div class="col-md-2 hidden-xs hidden-sm">
+            @Html.DisplayFor(modelItem => item.User.PhoneNb)
+        </div>
+        <div class="col-md-2 col-sm-3 hidden-xs">
+            @Html.DisplayFor(modelItem => item.User.SkillLevel)
+        </div>
+        <div class="col-md-2 hidden-xs hidden-sm">
+            @if (item.IsAdmin)
+            {
+                    @:Administrateur
+            }
+            else
+            {
+                    @:Utilisateur
+            }
+        </div>
+        <div class="col-md-1 col-sm-2 col-xs-6">
+            @Html.ActionLink("Heures", "ListHours", "WorkingHours", new { userId = item.User.Id }, null)
+        </div>
+    </div>
+}
+

@@ -1,0 +1,101 @@
+﻿@model WorkHoursViewModel
+
+@{
+    ViewBag.Title = "APMP - Heures travaillées";
+}
+
+<br />
+<h2> @Model.UserName</h2>
+
+<br />
+
+@Html.Partial("_Index", Model)
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $.datepicker.regional['fr'] = {
+                clearText: 'Effacer', clearStatus: '',
+                closeText: 'Fermer', closeStatus: 'Fermer sans modifier',
+                prevText: '&lt;Préc', prevStatus: 'Voir le mois précédent',
+                nextText: 'Suiv&gt;', nextStatus: 'Voir le mois suivant',
+                currentText: 'Courant', currentStatus: 'Voir le mois courant',
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun',
+                'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+                monthStatus: 'Voir un autre mois', yearStatus: 'Voir une autre année',
+                weekHeader: 'Sm', weekStatus: '',
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+                dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+                dayStatus: 'Utiliser DD comme premier jour de la semaine', dateStatus: 'Choisir le DD, MM d',
+                dateFormat: 'ddmmyy', firstDay: 1,
+                initStatus: 'Choisir la date', isRTL: false
+            };
+            $.datepicker.setDefaults($.datepicker.regional['fr']);
+            
+            $(document).on('click', ".dateCool", function () {
+                if (formChangeFlag === true) {
+                    $("#WarningMsgId").attr('value', "Veuillez sauvegarder vos changements avant de changer de jour.");
+                    $("#WarningMsgId").attr('style', "display:normal;border:none;color:red;font-weight:bold;width:800px");
+                    return false;
+                }
+                $('#DisplayDateId').focus();
+                $('#DisplayDateId').datepicker({
+                    onSelect: function (date) {
+                        window.location = "/WorkingHours/ChangeDay?CurrentDay=" + date + "&WorkSiteId=" +
+                                    $("#SelectedSiteId").val();
+                    }
+                });
+            });
+
+            var formChangeFlag = false;
+            $(document).on('change', "#PossibleHoursId, #InfoId", function (e) {
+                //':input' selector get all form fields even textarea, input, or select
+                formChangeFlag = false;
+
+                if ($(document).select("#PossibleHoursId").val() != $(document).select("#PossibleHoursId").data('default'))
+                {
+                    formChangeFlag = true;
+                }
+                else if ($(document).select("#InfoId").val() != $(document).select("#PossibleHoursId").data('default'))
+                {
+                    formChangeFlag = true;
+                }
+            });
+
+            $(document).on('click', "#PreviousDayId, #NextDayId", function () {
+                if (formChangeFlag === true) {
+                    $("#WarningMsgId").attr('value', "Veuillez sauvegarder vos changements avant de changer de jour.");
+                    $("#WarningMsgId").attr('style', "display:normal;border:none;color:red;font-weight:bold;width:800px");
+                    return false;
+                }
+                return true;
+            });
+
+
+            $(document).on('focus', "#SelectedSiteId", function () {
+                prev_val = $(this).val();
+            });
+
+            $(document).on('change', "#SelectedSiteId", function (){
+                if (formChangeFlag === true) {
+                    $(this).val(prev_val);
+                    $("#WarningMsgId").attr('value', "Veuillez sauvegarder vos changements avant de changer de chantier.");
+                    $("#WarningMsgId").attr('style', "display:normal;border:none;color:red;font-weight:bold;width:800px");
+                }
+                else {
+                    $(this.form).submit();
+                }
+            });
+
+            $(document).on("click", "#SaveWorkingHoursId", function () {
+                $("body").addClass("pleaseWait");
+            }); 
+        });
+    </script>
+}
+
+

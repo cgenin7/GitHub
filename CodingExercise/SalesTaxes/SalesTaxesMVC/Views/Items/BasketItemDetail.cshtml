@@ -1,0 +1,11 @@
+﻿@model SalesTaxesModels.ItemModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@Html.Partial("_details", Model)
+
+<p>
+    @Html.ActionLink("Back to List", "Index", "Baskets")
+</p>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<APMPRepository.Models.EquipmentModel>
+
+@{
+    ViewBag.Title = "APMP - Liste des équipements";
+}
+
+<br/>
+<h2>Liste des équipements</h2>
+<br/>
+
+@if (@User.IsInRole("Admin"))
+{
+    <p>
+    @Html.ActionLink("Ajouter un nouvel équipement", "Create")
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EquipmentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdditionalInfo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.EquipmentType, "Details", new { id = item.EquipmentId })
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdditionalInfo)
+        </td>
+    </tr>
+}
+
+</table>

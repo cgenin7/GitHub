@@ -1,0 +1,47 @@
+﻿@model WorkSiteModel
+
+
+<div id="@(string.Format("PartialWorkSiteDiv{0}", Model.WorkSiteId))">
+    @using (Ajax.BeginForm("DisplayPartialWorkSite",
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod = "post",
+                                        InsertionMode = InsertionMode.Replace,
+                                        UpdateTargetId = string.Format("PartialWorkSiteDiv{0}", Model.WorkSiteId)
+                                    }))
+    {
+        @Html.AntiForgeryToken();
+
+        @Html.HiddenFor(m => m.WorkSiteId)
+        @Html.HiddenFor(m => m.AdditionalInfo)
+        @Html.HiddenFor(m => m.ContactInfo)
+        @Html.HiddenFor(m => m.IsActive)
+        @Html.HiddenFor(m => m.Location)
+
+        <div class="row">
+
+            <div class="col-md-3 col-sm-5 col-xs-12">
+                @if (Model.IsActive)
+                {
+                    <input type="image" id="WorkSiteOn" src="~/Images/On.jpg" width="50" />
+                }
+                else
+                {
+                    <input type="image" id="WorkSiteOff" src="~/Images/Off.jpg" width="50" />
+                }
+                &nbsp;
+                @Html.ActionLink(Model.Location, "Details", new { id = Model.WorkSiteId })
+            </div>
+            <div class="col-md-3 col-sm-2 hidden-xs">
+                @Html.DisplayFor(modelItem => Model.ContactInfo)
+            </div>
+            <div class="col-md-3 col-sm-2 hidden-xs">
+                @Html.DisplayFor(modelItem => Model.PhoneNb)
+            </div>
+            <div class="col-md-3 col-sm-3 hidden-xs">
+                @Html.DisplayFor(modelItem => Model.AdditionalInfo)
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,24 @@
+﻿@model HandleErrorInfo
+
+@{
+    ViewBag.Title = "APMP - Erreur";
+}
+
+<br/>
+@{
+    if (String.IsNullOrEmpty(ViewBag.errorMessage))
+    {
+        <h2 class="text-danger">Une erreur inattendue s'est produite.</h2>
+        <br/>
+        @:Veuillez réessayer plus tard. <br />
+        @: Si le problème persiste, veuillez contacter 
+        @Html.ActionLink("APMP", "Contact", "Home")
+        <br />
+    }
+    else
+    {
+        <h2 class="text-danger">@ViewBag.errorMessage</h2>
+    }
+}
+
+

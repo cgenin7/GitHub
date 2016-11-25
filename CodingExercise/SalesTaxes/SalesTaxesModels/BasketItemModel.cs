@@ -1,4 +1,6 @@
-﻿namespace SalesTaxesModels
+﻿using System.ComponentModel;
+
+namespace SalesTaxesModels
 {
     public class BasketItemModel
     {
@@ -13,6 +15,7 @@
         public int ItemId { get; set; }
         public ItemModel Item { get; set; }
 
+        [DisplayName("Quantity")]
         public int ItemQuantity { get; set; }
     }
 }

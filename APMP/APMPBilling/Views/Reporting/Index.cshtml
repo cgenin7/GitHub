@@ -1,0 +1,80 @@
+﻿@model ReportingViewModel
+
+@{
+    ViewBag.Title = "Rapports";
+}
+<br/>
+<h2>Création de rapports</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.LabelFor(m => m.WorkSiteId):
+        </div>
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.DropDownListFor(m => m.WorkSiteId, Model.WorkSites)
+        </div>
+        <div class="col-md-4 hidden-sx hidden-sm">
+        
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.LabelFor(m => m.EmployeeId):
+        </div>
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.DropDownListFor(m => m.EmployeeId, Model.Employees)
+        </div>
+        <div class="col-md-4 hidden-sx hidden-sm">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.LabelFor(m => m.StartDate):
+        </div>
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.EditorFor(m => m.StartDate)
+        </div>
+        <div class="col-md-4 hidden-sx hidden-sm">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.LabelFor(m => m.EndDate):
+        </div>
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.EditorFor(m => m.EndDate)
+        </div>
+        <div class="col-md-4 hidden-sx hidden-sm">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.LabelFor(m => m.SortOrder):
+        </div>
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            @Html.DropDownListFor(m => m.SortOrder, Model.SortBy)
+        </div>
+        <div class="col-md-4 hidden-sx hidden-sm">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-xs-6 col-sm-6">
+        </div>
+        <div class="col-md-4 col-xs-6 col-sm-6">
+            <input type="submit" value="Générer le rapport" class="btn btn-default" /> &nbsp;
+        </div>
+        <div class="col-md-4 hidden-sx hidden-sm">
+        </div>
+    </div>
+    <br />
+}

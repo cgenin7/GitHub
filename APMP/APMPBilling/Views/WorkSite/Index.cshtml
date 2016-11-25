@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WorkSiteModel>
+
+@{
+    ViewBag.Title = "APMP - Liste des chantiers";
+}
+
+<br />
+<h2>Liste des chantiers</h2>
+<br />
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Ajouter un chantier", "Create")
+    </p>
+    <br />
+}
+
+
+<hr />
+<div class="row" style="font-weight:bold">
+    <div class="col-md-3 col-sm-5 col-xs-12" style="padding-left:80px">
+        Nom
+    </div>
+    <div class="col-md-3 col-sm-2 hidden-xs" >
+        @Html.DisplayNameFor(model => model.ContactInfo)
+    </div>
+    <div class="col-md-3 col-sm-2 hidden-xs">
+        @Html.DisplayNameFor(model => model.PhoneNb)
+    </div>
+    <div class="col-md-3 col-sm-3 hidden-xs">
+        @Html.DisplayNameFor(model => model.AdditionalInfo)
+    </div>
+</div>
+
+<hr />
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_WorkSiteIndex", item)    
+}

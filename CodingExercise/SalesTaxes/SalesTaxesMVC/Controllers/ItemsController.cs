@@ -38,6 +38,21 @@ namespace SalesTaxesMVC.Controllers
             return View(itemModel);
         }
 
+        // GET: Items/Details/5
+        public ActionResult BasketItemDetail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ItemModel itemModel = dbRepo.GetItem((int)id);
+            if (itemModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(itemModel);
+        }
+
         // GET: Items/Create
         public ActionResult Create()
         {
